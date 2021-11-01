@@ -15,10 +15,24 @@ double countExpr(const std::string& expr)
     return computer.compute();
 }
 
+void printOperations()
+{
+    std::cout << "Supported unary operations:\t";
+    for (auto& unar : ap::Operations::Instance().getUnarys())
+        std::cout << unar->getSymbols() << '\t';
+
+    std::cout << "\nSupported binary operations:\t";
+    for (auto& binar : ap::Operations::Instance().getBynarys())
+        std::cout << binar->getSymbols() << '\t';
+    std::cout << '\n';
+}
+
 int main()
 {
     std::string expression;
 
+    printOperations();
+    std::cout << "Enter expression:\n";
     while (true)
     {
         std::getline(std::cin, expression);
@@ -31,6 +45,7 @@ int main()
         {
             std::cout << exception.what() << std::endl;
         }
+        std::cout << '\n';
     }
 
     return 0;
