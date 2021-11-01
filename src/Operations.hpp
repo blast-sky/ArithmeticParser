@@ -31,6 +31,12 @@ namespace ap
 		virtual double compute(double arg) override { return std::sin(arg); }
 	};
 
+	class Cosinus : public IUnaryOperation
+	{
+		virtual std::string getSymbols() override { return "cos"; }
+		virtual double compute(double arg) override { return std::cos(arg); }
+	};
+
 	class BinaryPlus : public IBinaryOperation
 	{
 	public:
@@ -74,6 +80,8 @@ namespace ap
 	// ƒл€ добавлени€ операции - добавить ее экземпл€р в вектор соответствующего типа операции в Operations()
 	class Operations
 	{
+		using TUnarys = std::vector<std::unique_ptr<IUnaryOperation>>;
+		using TBinarys = std::vector<std::unique_ptr<IBinaryOperation>>;
 	public:
 		static Operations& Instance()
 		{
@@ -97,14 +105,25 @@ namespace ap
 			return nullptr;
 		}
 
+		const TUnarys& getUnarys()
+		{
+			return _unarys;
+		}
+
+		const TBinarys& getBynarys()
+		{
+			return _binarys;
+		}
+
 	private:
-		std::vector<std::unique_ptr<IUnaryOperation>> _unarys;
-		std::vector<std::unique_ptr<IBinaryOperation>> _binarys;
+		TUnarys _unarys;
+		TBinarys _binarys;
 
 		Operations()
 		{
 			_unarys.emplace_back(new UnaryMinus());
 			_unarys.emplace_back(new Sinus());
+			_unarys.emplace_back(new Cosinus());
 
 			_binarys.emplace_back(new BinaryPlus());
 			_binarys.emplace_back(new BinaryMinus());
