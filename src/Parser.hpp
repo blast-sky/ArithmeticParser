@@ -161,8 +161,9 @@ namespace ap
 			while (true)
 			{
 				Token token = getToken(getInputLess(), true);
-				if (token.type == TokenType::UNARY_OPERATOR ||
-					token.type == TokenType::OPEN_BRACE)
+				if (token.type != TokenType::BINARY_OPERATOR &&
+					token.type != TokenType::CLOSE_BRACE && 
+					token.type != TokenType::EMPTY)
 					throw UnexpectedSymbols(_inputOffset, _input[_inputOffset]);
 				if (token.priority <= prevPriority)
 					return left;

@@ -36,7 +36,6 @@ int main()
     while (true)
     {
         std::getline(std::cin, expression);
-        std::cin.seekg(1);
         try
         {
             std::cout << countExpr(expression) << std::endl;
